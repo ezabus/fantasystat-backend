@@ -1,20 +1,28 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-        uglify: {
-            options: {
-                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-            },
-            build: {
-                src: 'babelsrc/**/*.js',
-                dest: 'build/fantasy-backend.min.js'
-            }
+        exec: {
+            cmd: 'bash ./resources/bash/deploy.sh'
+            // zip: {
+            //     cmd: 'jar -cMf build/backend.zip package.json src resources'
+            // },
+            // upload: {
+            //     cmd: 'scp build/backend.zip ezabus@fantasystat.ru:/home/ezabus/backend/backend.zip',
+            // },
+            // unzip: {
+            //     cmd: 'ssh ezabus@fantasystat.ru unzip -o backend/backend.zip -d backend/'
+            // },
+            // update: {
+            //     cmd: 'ssh ezabus@fantasystat.ru npm update --prefix /home/ezabus/backend'
+            // },
+            // start: {
+            //     cmd: 'ssh ezabus@fantasystat.ru "bash -i -c \'sudo npm run serve --prefix /home/ezabus/backend\'"'
+            // }
         }
+
     });
 
-    // Load the plugin that provides the "uglify" task.
-    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-exec');
 
-    // Default task(s).
-    grunt.registerTask('default', ['uglify']);
+    grunt.registerTask('deploy', ['exec']);
+
 };

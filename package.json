@@ -6,7 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "node src/serve/http-server.js",
+    "pm2-start": "pm2 start src/serve/http-server.js",
+    "pm2-stop": "pm2 stop http-server",
+    "deploy": "grunt deploy",
     "build": "babel src -d babelsrc"
+  },
+  "engines": {
+    "node": ">= 7.6.0"
   },
   "repository": {
     "type": "git",
@@ -16,8 +22,10 @@
     "babel-core": "^6.26.0",
     "body-parser": "^1.18.2",
     "express": "latest",
+    "express-static": "1.2.5",
     "fs": "0.0.1-security",
     "fs-extra": "^4.0.2",
+    "jsontoxml": "0.1.0",
     "morgan": "^1.9.0",
     "path": "^0.12.7",
     "pg": "^7.3.0",
@@ -33,7 +41,12 @@
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
     "grunt": "^1.0.1",
+    "grunt-babel": "^7.0.0",
     "grunt-contrib-uglify": "^3.1.0",
+    "grunt-exec": "3.0.0",
+    "grunt-zip": "0.17.1",
+    "helmet": "3.9.0",
+    "load-grunt-tasks": "^3.5.2",
     "shipit-cli": "^3.0.0",
     "shipit-deploy": "^2.5.1"
   }

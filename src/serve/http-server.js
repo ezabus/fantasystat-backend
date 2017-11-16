@@ -1,8 +1,14 @@
 const express         = require('express');
+const static           = require('express-static');
 const path            = require('path');
-const log             = require('./logs.js')(module);
+const helmet          = require('helmet');
+const https           = require('https');
 const morgan          = require('morgan');
+const fs              = require('fs');
+const jsonxml         = require('jsontoxml');
+const log             = require('./logs.js')(module);
 const db              = require('../dal/db');
+
 const app = express();
 
 async function start() {
@@ -20,9 +26,18 @@ async function start() {
         next(new Error('Random error!'));
     });
 
-    app.listen(9999, function(){
-        log.info('Express server listening on port 9999');
+
+    app.get('/ting', function(req, res, next){
+        res.send("The ting go skraaaa");
     });
+
+    app.get('/xml', function (req, res, next) {
+        res.send(jsonxml({mans: "not hot"}));
+    });
+
+    // app.use(helmet());
+
+    // app.use(static(path.join(__dirname, '..', '..', 'static')));
 
     app.use(function(req, res, next){
         res.status(404);
@@ -36,6 +51,10 @@ async function start() {
         log.error('Internal error(%d): %s',res.statusCode,err.message);
         res.send({ error: err.message });
         return;
+    });
+
+    app.listen(9999, function(){
+        log.info('Express server listening on port 9999');
     });
 }
 
